@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neon Cross - Cross the Road</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-layer">
+            <div id="stats">
+                <div class="stat-box">LEVEL <span id="level-val">1</span></div>
+                <div class="stat-box">SCORE <span id="score-val">0</span></div>
+                <div class="stat-box">LIVES <span id="lives-val">3</span></div>
+            </div>
+            
+            <div id="menu-overlay" class="overlay">
+                <h1 class="neon-text">NEON CROSS</h1>
+                <p>Cross the road to win. Avoid the obstacles.</p>
+                <div class="controls-hint">
+                    <span>WASD</span> or <span>ARROWS</span> to Move
+                </div>
+                <button id="start-btn" class="neon-button">START GAME</button>
+            </div>
+
+            <div id="game-over-overlay" class="overlay hidden">
+                <h1 class="neon-text danger">GAME OVER</h1>
+                <p>Final Score: <span id="final-score">0</span></p>
+                <button id="restart-btn" class="neon-button">TRY AGAIN</button>
+            </div>
+
+            <div id="win-overlay" class="overlay hidden">
+                <h1 class="neon-text success">VICTORY</h1>
+                <p>You crossed the ultimate path!</p>
+                <p>Score: <span id="win-score">0</span></p>
+                <button id="next-level-btn" class="neon-button">NEXT LEVEL</button>
+            </div>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
