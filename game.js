@@ -19,6 +19,12 @@ const livesVal = document.getElementById('lives-val');
 const finalScoreVal = document.getElementById('final-score');
 const winScoreVal = document.getElementById('win-score');
 
+// New UI Elements
+const controlRestartBtn = document.getElementById('control-restart-btn');
+const difficultySlider = document.getElementById('difficulty-slider');
+const difficultyVal = document.getElementById('diff-val');
+const infLivesToggle = document.getElementById('inf-lives-toggle');
+
 // Game constants
 const LANES = 8;
 const LANE_HEIGHT = 80;
@@ -49,6 +55,10 @@ let player;
 let obstacles = [];
 let particles = [];
 let keys = {};
+
+// Feature settings
+let infiniteLives = false;
+let baseDifficulty = 1;
 
 // --- Classes ---
 
@@ -107,9 +117,13 @@ class Obstacle {
         this.height = OBSTACLE_HEIGHT;
         this.y = lane * LANE_HEIGHT + (LANE_HEIGHT - this.height) / 2;
         
+        
         // Direction based on lane (alternating)
         this.direction = (lane % 2 === 0) ? 1 : -1;
-        this.speed = (Math.random() * 2 + 1.5) * (1 + (level - 1) * 0.2);
+        
+        // Incorporate base difficulty from slider (1-10)
+        const difficultyMultiplier = 1 + (baseDifficulty - 1) * 0.15;
+        this.speed = (Math.random() * 2 + 1.5) * (1 + (level - 1) * 0.2) * difficultyMultiplier;
         
         if (this.direction === 1) {
             this.x = -this.width - Math.random() * 300;
@@ -222,8 +236,12 @@ function handleHit() {
         particles.push(new Particle(player.x + player.width / 2, player.y + player.height / 2, player.color));
     }
     
-    lives--;
-    livesVal.innerText = lives;
+    if (!infiniteLives) {
+        lives--;
+        livesVal.innerText = lives;
+    } else {
+        livesVal.innerText = '∞';
+    }
     
     if (lives <= 0) {
         endGame();
@@ -250,7 +268,7 @@ function startGame() {
     gameState = 'PLAYING';
     score = 0;
     level = 1;
-    lives = 3;
+    lives = infiniteLives ? '∞' : 3;
     scoreVal.innerText = score;
     levelVal.innerText = level;
     livesVal.innerText = lives;
@@ -335,6 +353,29 @@ function gameLoop() {
 startBtn.onclick = startGame;
 restartBtn.onclick = startGame;
 nextBtn.onclick = nextLevel;
+
+// New logic event listeners
+controlRestartBtn.onclick = startGame;
+
+difficultySlider.oninput = (e) => {
+    baseDifficulty = parseInt(e.target.value);
+    difficultyVal.innerText = baseDifficulty;
+    // Update existing obstacles speeds
+    obstacles.forEach(obs => {
+        const difficultyMultiplier = 1 + (baseDifficulty - 1) * 0.15;
+        obs.speed = (Math.random() * 2 + 1.5) * (1 + (level - 1) * 0.2) * difficultyMultiplier;
+    });
+};
+
+infLivesToggle.onchange = (e) => {
+    infiniteLives = e.target.checked;
+    if (infiniteLives) {
+        livesVal.innerText = '∞';
+    } else {
+        if (typeof lives !== 'number') lives = 3; // Reset if it was infinity
+        livesVal.innerText = lives;
+    }
+};
 
 handleInput();
 init();

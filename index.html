@@ -40,6 +40,24 @@
                 <p>Score: <span id="win-score">0</span></p>
                 <button id="next-level-btn" class="neon-button">NEXT LEVEL</button>
             </div>
+
+            <div id="controls-panel">
+                <div class="control-group">
+                    <button id="control-restart-btn" class="small-neon-button">RESTART</button>
+                </div>
+                <div class="control-group">
+                    <label for="difficulty-slider">DIFFICULTY</label>
+                    <input type="range" id="difficulty-slider" min="1" max="10" value="1">
+                    <span id="diff-val">1</span>
+                </div>
+                <div class="control-group">
+                    <label class="switch">
+                        <input type="checkbox" id="inf-lives-toggle">
+                        <span class="slider-toggle"></span>
+                    </label>
+                    <span class="toggle-label">INF LIVES</span>
+                </div>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
