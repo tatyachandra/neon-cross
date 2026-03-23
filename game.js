@@ -74,7 +74,7 @@ class Player {
         this.x = CANVAS_WIDTH / 2 - this.width / 2;
         this.y = CANVAS_HEIGHT - LANE_HEIGHT / 2 - this.height / 2;
         this.speed = 5;
-        this.color = COLORS.cyan;
+        this.color = this.color || COLORS.cyan;
         this.reachedTop = false;
     }
 
