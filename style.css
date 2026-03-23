@@ -275,3 +275,23 @@ input:checked + .slider-toggle:before {
     white-space: nowrap;
 }
 
+#player-color-picker {
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+#player-color-picker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#player-color-picker::-webkit-color-swatch {
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    box-shadow: 0 0 5px currentColor;
+}
+

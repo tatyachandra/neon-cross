@@ -24,6 +24,7 @@ const controlRestartBtn = document.getElementById('control-restart-btn');
 const difficultySlider = document.getElementById('difficulty-slider');
 const difficultyVal = document.getElementById('diff-val');
 const infLivesToggle = document.getElementById('inf-lives-toggle');
+const colorPicker = document.getElementById('player-color-picker');
 
 // Game constants
 const LANES = 8;
@@ -374,6 +375,12 @@ infLivesToggle.onchange = (e) => {
     } else {
         if (typeof lives !== 'number') lives = 3; // Reset if it was infinity
         livesVal.innerText = lives;
+    }
+};
+
+colorPicker.oninput = (e) => {
+    if (player) {
+        player.color = e.target.value;
     }
 };
 
